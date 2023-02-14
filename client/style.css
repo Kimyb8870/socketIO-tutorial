@@ -1,0 +1,32 @@
+#message-container {
+  border: 3px solid black;
+  width: 100%;
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+#message-container > div {
+  font-size: 2rem;
+}
+
+#message-container > div:nth-child(odd) {
+  background: lightgray;
+}
+
+.input-container {
+  display: flex;
+}
+
+.input-container > label {
+  flex-basis: 15%;
+  font-size: 2rem;
+}
+.input-container > input[type="text"] {
+  flex: 1;
+  font-size: 2rem;
+}
+
+.input-container > button {
+  flex-basis: 20%;
+  font-size: 2rem;
+}
