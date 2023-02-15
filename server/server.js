@@ -7,20 +7,25 @@ const io = require("socket.io")(3000, {
 io.on("connection", (socket) => {
   console.log(socket.id);
 
-  socket.on("send-message", (message, room) => {
+  socket.on("control-init", (message, device) => {
     //broadcast except sending socket
     //socket.broadcast.emit("receive-message", message);
     //broadcast to all socket
     //io.emit("receive-message", message);
 
-    if (room === "") {
-      socket.broadcast.emit("receive-message", message);
+    if (device === "") {
+      socket.broadcast.emit("control-request", message);
     } else {
-      socket.to(room).emit("receive-message", message);
+      socket.to(device).emit("control-request", message);
     }
   });
 
-  socket.on("join-room", (room) => {
-    socket.join(room);
+  socket.on("control-finish", (message) => {
+    io.emit("control-response", message);
+  });
+
+  socket.on("join-room", (device) => {
+    socket.leave();
+    socket.join(device);
   });
 });

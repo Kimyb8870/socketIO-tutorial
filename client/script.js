@@ -6,12 +6,13 @@ const roomInput = document.querySelector("#room-input");
 const form = document.querySelector("#form");
 
 const socket = io("http://localhost:3000");
+// const socket = io("http://192.168.0.7:3000");
 
 socket.on("connect", () => {
   displayMessage(`You connected wiht id : ${socket.id}`);
 });
 
-socket.on("receive-message", (message) => {
+socket.on("control-response", (message) => {
   displayMessage(message);
 });
 
@@ -23,16 +24,16 @@ form.addEventListener("submit", (e) => {
 
   if (message === "") return;
   //displayMessage(message);
-  socket.emit("send-message", message, room);
+  socket.emit("control-init", message, room);
 
   messageInput.value = "";
 });
 
-joinRoomButton.addEventListener("click", () => {
-  const room = roomInput.value;
+// joinRoomButton.addEventListener("click", () => {
+//   const room = roomInput.value;
 
-  socket.emit("join-room", room);
-});
+//   socket.emit("join-room", room);
+// });
 
 function displayMessage(message) {
   const div = document.createElement("div");
